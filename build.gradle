@@ -1,0 +1,58 @@
+plugins {
+    id 'java-library'
+    id 'io.qameta.allure' version "2.12.0"
+    id 'io.freefair.lombok' version "8.14"
+}
+
+group = 'ru.example'
+version = '1.0-SNAPSHOT'
+
+allure {
+    report {
+        version.set("2.29.0")
+    }
+    adapter {
+        aspectjWeaver.set(true)
+        frameworks {
+            junit5 {
+                adapterVersion.set("2.29.0")
+            }
+        }
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+compileTestJava {
+    options.encoding = 'UTF-8'
+}
+
+dependencies {
+    testImplementation(
+            platform("org.junit:junit-bom:5.13.4"),
+            "org.junit.jupiter:junit-jupiter",
+            "org.junit.platform:junit-platform-launcher",
+            platform("io.rest-assured:rest-assured-bom:5.5.6"),
+            "io.rest-assured:rest-assured",
+            "io.rest-assured:json-schema-validator",
+            platform("io.qameta.allure:allure-bom:2.29.1"),
+            "io.qameta.allure:allure-junit5",
+            "io.qameta.allure:allure-rest-assured",
+            "io.qameta.allure:allure-selenide",
+            "com.codeborne:selenide:7.9.4"
+    )
+    testRuntimeOnly "org.slf4j:slf4j-nop:2.0.17"
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+    systemProperties(System.getProperties())
+    testLogging {
+        lifecycle {
+            events "started", "passed", "skipped", "failed", "standard_error", "standard_out"
+            exceptionFormat "short"
+        }
+    }
+}
