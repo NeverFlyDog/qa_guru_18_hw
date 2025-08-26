@@ -5,7 +5,9 @@ import io.qameta.allure.Step;
 
 import java.util.Arrays;
 
-public class BookstoreApi extends BaseApi {
+import static com.demoqa.specs.BaseSpecs.spec;
+
+public class BookstoreApi {
     private final String token;
     private final String userId;
 

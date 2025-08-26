@@ -1,4 +1,4 @@
-package com.demoqa.api;
+package com.demoqa.specs;
 
 import com.demoqa.utils.AllureListener;
 import io.restassured.specification.RequestSpecification;
@@ -6,16 +6,15 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.given;
 import static io.restassured.http.ContentType.JSON;
 
-public class BaseApi {
+public class BaseSpecs {
 
-    protected static RequestSpecification spec() {
+    public static RequestSpecification spec() {
         return given()
                 .filter(AllureListener.withCustomTemplates())
-                .contentType(JSON)
-                .log().all();
+                .contentType(JSON);
     }
 
-    protected static RequestSpecification spec(String token) {
+    public static RequestSpecification spec(String token) {
         return spec()
                 .auth().oauth2(token);
     }

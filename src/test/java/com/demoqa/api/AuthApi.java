@@ -5,7 +5,9 @@ import com.demoqa.models.auth.LoginRequestDto;
 import com.demoqa.models.auth.LoginResponseDto;
 import io.qameta.allure.Step;
 
-public class AuthApi extends BaseApi {
+import static com.demoqa.specs.BaseSpecs.spec;
+
+public class AuthApi {
 
     public static LoginResponseDto login(String username, String password) {
         LoginRequestDto requestDto = new LoginRequestDto(username, password);
