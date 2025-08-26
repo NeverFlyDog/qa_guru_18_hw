@@ -8,12 +8,12 @@ import io.qameta.allure.Step;
 public class AuthApi extends BaseApi {
 
     public static LoginResponseDto login(String username, String password) {
-        LoginRequestDto loginRequestDto = new LoginRequestDto(username, password);
+        LoginRequestDto requestDto = new LoginRequestDto(username, password);
         return spec()
-                .body(loginRequestDto)
-            .when()
+                .body(requestDto)
+                .when()
                 .post("/Account/v1/Login")
-            .then()
+                .then()
                 .statusCode(200)
                 .extract().as(LoginResponseDto.class);
     }

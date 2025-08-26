@@ -16,12 +16,12 @@ public class BookstoreApi extends BaseApi {
 
     @Step("Добавляем пользователю книги с ISBN {isbns}")
     public AddBooksResponseDto addBooks(String... isbns) {
-        AddBooksRequestDto request = new AddBooksRequestDto();
-        request.setUserId(userId);
-        request.setCollectionOfIsbns(Arrays.stream(isbns).map(BookDto::new).toList());
+        AddBooksRequestDto requestDto = new AddBooksRequestDto();
+        requestDto.setUserId(userId);
+        requestDto.setCollectionOfIsbns(Arrays.stream(isbns).map(BookDto::new).toList());
 
         return spec(token)
-                .body(request)
+                .body(requestDto)
                 .when()
                 .post("/BookStore/v1/Books")
                 .then()
@@ -31,12 +31,12 @@ public class BookstoreApi extends BaseApi {
 
     @Step("Удаляем у пользователя книгу с ISBN [{isbn}]")
     public void deleteBook(String isbn) {
-        DeleteBookRequestDto deleteBookRequestDto = new DeleteBookRequestDto();
-        deleteBookRequestDto.setUserId(userId);
-        deleteBookRequestDto.setIsbn(isbn);
+        DeleteBookRequestDto requestDto = new DeleteBookRequestDto();
+        requestDto.setUserId(userId);
+        requestDto.setIsbn(isbn);
 
         spec(token)
-                .body(deleteBookRequestDto)
+                .body(requestDto)
                 .when()
                 .delete("/BookStore/v1/Book")
                 .then()
